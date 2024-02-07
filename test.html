@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Test</title>
+  <script type="text/javascript">
+    const createCard = () => {
+      const card = document.createElement("section");
+      card.classList = ["card"];
+
+      return card;
+    };
+
+    const createLinksList = links => {
+      const linkContainer = document.createElement("div");
+
+      links.forEach(link => {
+        let linkEl = document.createElement("a");
+        linkEl.setAttribute("href", link.href);
+        linkEl.innerHTML = link.text;
+        linkContainer.appendChild(linkEl);
+      });
+
+      return linkContainer;
+    };
+
+    const createCardContent = cardContent => {
+      const cardImage = document.createElement("img");
+      cardImage.setAttribute("src", cardContent.image);
+
+      const cardTitle = document.createElement("h3");
+      cardTitle.innerHTML = cardContent.title;
+
+      const cardDescription = document.createElement("p");
+      cardDescription.innerHTML = cardContent.body;
+
+      const linksList = createLinksList(cardContent.links)
+
+
+      const card = createCard();
+      card.appendChild(cardImage);
+      card.appendChild(cardTitle);
+      card.appendChild(cardDescription);
+      card.appendChild(linksList);
+
+      return card;
+    };
+  </script>
+</head>
+<style>
+  body {
+    padding: 16px;
+  }
+
+  .card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .card-container .card {
+    border: 1px solid grey;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .card-container .card>img {
+    max-width: 100%;
+  }
+
+  .card-container .card div {
+    display: flex;
+    gap: 20px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .card-container {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<body>
+  <header>
+    <h1 id="pageTitle"></h1>
+  </header>
+  <main id="deckContainer" class="deck-container">
+    <h2 id="deckHeading"></h2>
+    <div id="cardContainer" class="card-container"></div>
+  </main>
+</body>
+<script type="text/javascript">
+  const data = {
+    "title": "Please recreate this grouping of cards using the provided data.",
+    "body": "<p>Development notes:</p><ul><li>Please DO NOT pay attention to specific dimensions. We are more concerned with general layout. However, the aspect ratio and framing of the images are important.</li><li>Please DO NOT use a framework for layout. Examples are: bootstrap, foundation, etc.</li><li>Feel free to use any developer tools to build including but not limited to: templating languages, code compilers, codepen, etc.</li><li>JavaScript, semantic HTML, and CSS are expected.</li><li>Here’s a hint - loop through the JSON datafile to generate the cards.</li><li>Cards should be in one column at mobile views.</li><li>Please package test page as a zip file for review.</li></ul>",
+    "deck_heading": "Deck title",
+    "cards": [
+      {
+        "image": "https://content.schwab.com/c2/UIE_codetest/img/cat1.jpg",
+        "title": "Cat with blue eyes",
+        "body": "Blue eyes ipsum dolor sit amet, consectetur adipiscing elit. Nam arcu neque, mollis sed velit et, egestas laoreet mauris. Nunc venenatis tincidunt.",
+        "links": [
+          {
+            "text": "Link One",
+            "href": "#"
+          }
+        ]
+      },
+      {
+        "image": "https://content.schwab.com/c2/UIE_codetest/img/cat2.jpg",
+        "title": "Cat in deep thought",
+        "body": "Deep thought ipsum dolor sit amet, consectetur adipiscing elit. Nam arcu neque, mollis sed velit et, egestas laoreet mauris. Nunc venenatis tincidunt.",
+        "links": [
+          {
+            "text": "Link One",
+            "href": "#"
+          },
+          {
+            "text": "Link Two",
+            "href": "#"
+          }
+        ]
+      },
+      {
+        "image": "https://content.schwab.com/c2/UIE_codetest/img/cat3.jpg",
+        "title": "Calico cat",
+        "body": "Calico ipsum dolor sit amet, consectetur adipiscing elit. Nam arcu neque, mollis sed velit et, egestas laoreet mauris. Nunc venenatis tincidunt sodales.",
+        "links": [
+          {
+            "text": "Link One",
+            "href": "#"
+          }
+        ]
+      }
+    ]
+  };
+
+  (() => {
+    const headerEl = document.getElementById("pageTitle");
+    headerEl.innerHTML = data.title;
+
+
+    const deckHeading = document.getElementById("deckHeading");
+    deckHeading.innerHTML = data.deck_heading;
+
+    const cardContainer = document.getElementById("cardContainer");
+
+    data.cards.forEach(card => {
+      cardContainer.appendChild(createCardContent(card));
+    });
+  })();
+</script>
+
+</html>
